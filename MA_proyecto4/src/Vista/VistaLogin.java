@@ -109,6 +109,9 @@ public class VistaLogin extends javax.swing.JFrame {
         //System.out.println("Su nombre es " + nombre + "Y su contraseña es: " + pass);
         if(controller.controlAcceso(nombre, pass)==1){
             JOptionPane.showMessageDialog(null, "Login correcto");
+            setVisible(false);
+            VistaPrincipal nVista = new VistaPrincipal();
+            nVista.setVisible(true);
         }
         else{
            JOptionPane.showMessageDialog(null, "Usuario/contrseña incorrectos");
