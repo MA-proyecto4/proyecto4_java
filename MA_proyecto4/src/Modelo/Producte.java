@@ -16,18 +16,27 @@ public class Producte {
     private String prod_nom;
     private String prod_foto;
     private double prod_precio;
+    private int categoria;
+    private int prod_estoc_actual;
+    private int prod_estoc_minim;
+    private int prod_estoc_max;
     
-
+    //Constructores
     public Producte() {
     }
 
-    public Producte(int prod_id, String prod_nom, String prod_foto, double prod_precio) {
+    public Producte(int prod_id, String prod_nom, double prod_precio) {
         this.prod_id = prod_id;
         this.prod_nom = prod_nom;
-        this.prod_foto = prod_foto;
+       // this.prod_foto = prod_foto;
         this.prod_precio = prod_precio;
     }
 
+    public Producte(String prod_nom, double prod_precio) {
+        this.prod_nom = prod_nom;
+        this.prod_precio = prod_precio;
+    }
+    
     //Metodos accesorios
     //Getters
 

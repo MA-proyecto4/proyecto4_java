@@ -66,7 +66,7 @@ public class Controller {
         public DefaultTableModel mostrarTabla() {
           DefaultTableModel muestra = null;
           //Consulta que engloba la tabla producto,categoria y estoc para mostrar los datos
-          String sql = "SELECT * FROM `tbl_producte` LEFT JOIN `tbl_estoc` ON `tbl_producte`.`prod_id`=`tbl_estoc`.`prod_id` LEFT JOIN `tbl_categoria` ON `tbl_producte`.`categoria_id`=`tbl_categoria`.`categoria_id`;";
+          String sql = "SELECT * FROM `tbl_producte` LEFT JOIN `tbl_categoria` ON `tbl_producte`.`categoria_id`=`tbl_categoria`.`categoria_id`;";
           Statement st = null;
           String vectorProducto[] = new String[6];
           String vectorProducto1[] = new String[6];
@@ -74,9 +74,9 @@ public class Controller {
           vectorProducto1[0] = "prod_nom";
           vectorProducto1[1] = "prod_precio";
          // vectorProducto1[3] = "categoria_id";
-          vectorProducto1[2] = "estoc_q_min";
-           vectorProducto1[3] = "estoc_q_max";
-          vectorProducto1[4] = "estoc_actual";
+          vectorProducto1[2] = "prod_estoc_minim";
+           vectorProducto1[3] = "prod_estoc_max";
+          vectorProducto1[4] = "prod_estoc_actual";
           vectorProducto1[5] = "categoria_nom";
            muestra=new DefaultTableModel(null, vectorProducto1);
 //String[] vectorProducto; De otra manera definir el vector
@@ -93,9 +93,9 @@ public class Controller {
                 vectorProducto[0] = rs.getString("prod_nom");
                 vectorProducto[1] = String.valueOf(rs.getInt("prod_precio"));
                 //vectorProducto[3] = String.valueOf(rs.getInt("categoria_id"));
-                vectorProducto[2] = String.valueOf(rs.getInt("estoc_q_min"));
-                vectorProducto[3] = String.valueOf(rs.getInt("estoc_q_max"));
-                vectorProducto[4] = String.valueOf(rs.getInt("estoc_actual"));
+                vectorProducto[2] = String.valueOf(rs.getInt("prod_estoc_minim"));
+                vectorProducto[3] = String.valueOf(rs.getInt("prod_estoc_max"));
+                vectorProducto[4] = String.valueOf(rs.getInt("prod_estoc_actual"));
                 vectorProducto[5] = rs.getString("categoria_nom");
                 muestra.addRow(vectorProducto);
             }
@@ -108,30 +108,23 @@ public class Controller {
         //Funcion que no devuelve nada y sirve para añadir un producto nuevo a nuestra BD
 
         public void AnadirProducto (Producte p){
-         String sql = "INSERT INTO tbl_producte (prod_nom, prod_precio) VALUES (?,?)";
+             //1. conectarme
+               // Conexion conectar = new Conexion();
+                Connection cn = conectar.conec();
+                 String sql = "INSERT INTO `tbl_producte` (`prod_nom`,  `prod_precio`, `categoria_id`, `prod_estoc_actual`, `prod_estoc_minim`, `prod_estoc_max`) VALUES (?, ?, '1', ?, ?, ?);;";
                 PreparedStatement pst = null;
                 try {
+                    
                     // Creamos el pst, para pasar los parametros a la consulta
                     pst = cn.prepareStatement(sql);
                     //montar tabla para insertar en la bd
                     System.out.println("He llegado aqui");
-                    pst.setString(1, p.getProd_nom());
-                    pst.setDouble(2, p.getProd_precio());
-                    //pst.setDouble(3, p.getPro_stok());
-                    // ejecutamos la consulta del pst
-                    //pst.executeUpdate();
-
-                    //variable para comprobar que hace la conexion, ya que 'pst.executeUpdate();' devuelve 1 o 0. Falso o verdadero
-                    int n = pst.executeUpdate();
-                    System.out.println("He llegado aqui2");
-                    if (n != 0) {
-
-                        JOptionPane.showMessageDialog(null, "Se han insertado los datos correctamente");
-
-                    } else {
-                        JOptionPane.showMessageDialog(null, "No se han insertado los datos");
-
-                    }
+                     pst.setString(1, p.getProd_nom());
+                    
+                     pst.setDouble(2, p.getProd_precio());
+                      System.out.println("Y ahora Aquí 2");
+                                    
+                    pst.executeUpdate();
 
                 } catch (SQLException e) {
                     JOptionPane.showMessageDialog(null, "Conexion erronea");
@@ -169,5 +162,7 @@ public class Controller {
 
                 }
         }
+      
+
         
 }

@@ -10,7 +10,7 @@ import Modelo.Categoria;
 
 /**
  *
- * @author usuari
+ * @author MA_Proyecto
  */
 public class VistaPrincipal extends javax.swing.JFrame {
     //Creamos una instancia de un controller. 
@@ -23,7 +23,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
         this.tmostrar.setModel(controller.mostrarTabla());
         controller.llenarCombo(jComboBox);
     }
-   
+    //Funcion que vacia todas las cajas de Texto
+   private void Limpiar(){
+        this.jNombre.setText("");
+        this.tStock.setText("");
+        this.testocm.setText("");
+        this.testocma.setText("");
+        this.jPrecio.setText("");
+   }
    
     /**
      * This method is called from within the constructor to initialize the form.
@@ -42,7 +49,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         lactual_estoc = new javax.swing.JLabel();
         jPrecio = new javax.swing.JTextField();
-        jtNombre = new javax.swing.JTextField();
+        jNombre = new javax.swing.JTextField();
         tStock = new javax.swing.JTextField();
         jbAdd = new javax.swing.JButton();
         jbEliminar = new javax.swing.JButton();
@@ -86,6 +93,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jPrecio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPrecioActionPerformed(evt);
+            }
+        });
+
+        jNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jNombreActionPerformed(evt);
             }
         });
 
@@ -133,7 +146,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(tStock, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtNombre)
+                            .addComponent(jNombre)
                             .addComponent(testocm))
                         .addGap(15, 15, 15))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -141,20 +154,18 @@ public class VistaPrincipal extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(lmin_estoc1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(testocma, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(testocma, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(lPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(32, 32, 32)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(32, 32, 32)
                                         .addComponent(jComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(idCat, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(jPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jbGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -169,7 +180,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbAdd)
                     .addComponent(jLabel2)
-                    .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbEliminar)
@@ -264,6 +275,21 @@ public class VistaPrincipal extends javax.swing.JFrame {
     
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         // TODO add your handling code here:
+        if(this.jbGuardar.getText()=="Guardar"){
+            String nombre = this.jNombre.getText();
+            int stock = Integer.parseInt(this.tStock.getText());
+            int minStock = Integer.parseInt(this.testocm.getText());
+            int maxSctock = Integer.parseInt(this.testocma.getText());
+            double precio = Double.parseDouble(this.jPrecio.getText());
+            Producte p = new Producte(nombre,precio);
+            controller.AnadirProducto(p);
+        }
+        else{
+            System.out.println("Es modificar");
+        }
+        //Producte p = new Producte(nombre,precio);
+
+       // producte.addProducte(p);
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void tmostrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tmostrarMouseClicked
@@ -275,29 +301,43 @@ public class VistaPrincipal extends javax.swing.JFrame {
         //Marcar la fila selecionado al presionar click
         int fila = tmostrar.rowAtPoint(evt.getPoint());
         //Pasa el parametro
-        jtNombre.setText(String.valueOf(tmostrar.getValueAt(fila, 0)));
+        jNombre.setText(String.valueOf(tmostrar.getValueAt(fila, 0)));
         tStock.setText(String.valueOf(tmostrar.getValueAt(fila, 4)));
-        testocm.setText(String.valueOf(tmostrar.getValueAt(fila, 3)));
-        testocma.setText(String.valueOf(tmostrar.getValueAt(fila, 4)));
+        testocm.setText(String.valueOf(tmostrar.getValueAt(fila, 4)));
+        testocma.setText(String.valueOf(tmostrar.getValueAt(fila, 3)));
         jPrecio.setText(String.valueOf(tmostrar.getValueAt(fila, 1)));
         //Desahibilitar los botones de añadir y eliminar
     }//GEN-LAST:event_tmostrarMouseClicked
 
     private void jbAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAddActionPerformed
-        // TODO add your handling code here:
-        String nombre = this.jtNombre.getText();
-        double precio = Double.parseDouble(this.jPrecio.getText());
+        // Vaciamos los campos
+        Limpiar();
+         this.jbGuardar.setText("Guardar");
+       /* this.jNombre.setText("");
+        this.tStock.setText("");
+        this.testocm.setText("");
+        this.testocma.setText("");
+        this.jPrecio.setText("");
+        
+        String nombre = this.jNombre.getText();
         int stock = Integer.parseInt(this.tStock.getText());
         int minStock = Integer.parseInt(this.testocm.getText());
-        
+        int maxSctock = Integer.parseInt(this.testocma.getText());
+        double precio = Double.parseDouble(this.jPrecio.getText());
+        Producte p = new Producte(nombre,precio);
+        controller.AnadirProducto(p);
         //Producte p = new Producte(nombre,precio);
 
-       // producte.addProducte(p);
+       // producte.addProducte(p);*/
     }//GEN-LAST:event_jbAddActionPerformed
 
     private void jComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxActionPerformed
+
+    private void jNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jNombreActionPerformed
         private void jComboBoxItemStateChanged(java.awt.event.ItemEvent evt){
             Categoria ca=(Categoria)this.jComboBox.getSelectedItem();
             this.idCat.setText(String.valueOf(ca.getIdcategoria()));
@@ -343,6 +383,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JTextField jNombre;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jPrecio;
@@ -352,7 +393,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jbAdd;
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbGuardar;
-    private javax.swing.JTextField jtNombre;
     private javax.swing.JLabel lPrecio;
     private javax.swing.JLabel lactual_estoc;
     private javax.swing.JLabel lmin_estoc;
