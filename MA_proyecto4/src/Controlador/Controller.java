@@ -1,11 +1,14 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package Controlador;
-import Modelo.Producte;
+import Modelo.Categoria;
 import Modelo.Conexion;
+import Modelo.Producte;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +16,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -139,4 +144,29 @@ public class Controller {
 
                 }
         }
+            public void llenarCombo(JComboBox box){
+             DefaultComboBoxModel value;
+                String sql = "Select * From tbl_categoria";
+              Statement st = null;
+             ResultSet rs=null;
+
+        try {
+            st = cn.createStatement();
+             //JOptionPane.showMessageDialog(null, "Conexion viento en popa2");
+            rs = st.executeQuery(sql);
+             // JOptionPane.showMessageDialog(null, "Conexion viento en popa2");
+            value=new DefaultComboBoxModel();
+            box.setModel(value);
+            while (rs.next()) {
+            
+             value.addElement(new Categoria(rs.getInt("idcategoria"),rs.getString("name")));
+            
+            }
+            cn.close();
+        } catch (SQLException ex) {
+             JOptionPane.showMessageDialog(null, "Conexion erronea");
+          
+        }
+        }
+        
 }
