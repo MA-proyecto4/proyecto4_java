@@ -144,29 +144,30 @@ public class Controller {
 
                 }
         }
+        //Selecciona los datos de categoria y rellena el combo box
             public void llenarCombo(JComboBox box){
              DefaultComboBoxModel value;
                 String sql = "Select * From tbl_categoria";
               Statement st = null;
              ResultSet rs=null;
 
-        try {
-            st = cn.createStatement();
-             //JOptionPane.showMessageDialog(null, "Conexion viento en popa2");
-            rs = st.executeQuery(sql);
-             // JOptionPane.showMessageDialog(null, "Conexion viento en popa2");
-            value=new DefaultComboBoxModel();
-            box.setModel(value);
-            while (rs.next()) {
-            
-             value.addElement(new Categoria(rs.getInt("idcategoria"),rs.getString("name")));
-            
-            }
-            cn.close();
-        } catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null, "Conexion erronea");
-          
-        }
+                try {
+                    st = cn.createStatement();
+                     //JOptionPane.showMessageDialog(null, "Conexion viento en popa2");
+                    rs = st.executeQuery(sql);
+                     // JOptionPane.showMessageDialog(null, "Conexion viento en popa2");
+                    value=new DefaultComboBoxModel();
+                    box.setModel(value);
+                    while (rs.next()) {
+
+                     value.addElement(new Categoria(rs.getInt("categoria_id"),rs.getString("categoria_nom")));
+
+                    }
+                    cn.close();
+                } catch (SQLException ex) {
+                     JOptionPane.showMessageDialog(null, "Conexion erronea");
+
+                }
         }
         
 }
