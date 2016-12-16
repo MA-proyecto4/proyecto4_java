@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package Vista;
-
+import Modelo.Producte;
 import Controlador.Controller;
 
 /**
@@ -83,6 +83,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         });
 
         jbAdd.setText("Añadir");
+        jbAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbAddActionPerformed(evt);
+            }
+        });
 
         jbEliminar.setText("Eliminar");
 
@@ -248,6 +253,17 @@ public class VistaPrincipal extends javax.swing.JFrame {
         testocma.setText(String.valueOf(tmostrar.getValueAt(fila, 4)));
         //Desahibilitar los botones de añadir y eliminar
     }//GEN-LAST:event_tmostrarMouseClicked
+
+    private void jbAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAddActionPerformed
+        // TODO add your handling code here:
+        String nombre = this.jtNombre.getText();
+      /*  double precio = Double.parseDouble(this.jtPrecio.getText());
+        double stock = Double.parseDouble(this.jtStock.getText());
+
+        Producte p = new Producte(nombre,precio);
+
+        producte.addProducte(p);*/
+    }//GEN-LAST:event_jbAddActionPerformed
 
     /**
      * @param args the command line arguments
