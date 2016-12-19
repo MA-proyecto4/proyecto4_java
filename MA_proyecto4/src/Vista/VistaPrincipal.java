@@ -317,7 +317,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
          String nombre = this.jNombre.getText();
             int stock = Integer.parseInt(this.tStock.getText());
             int minStock = Integer.parseInt(this.testocm.getText());
-<<<<<<< HEAD
             int categoria = Integer.parseInt(this.lIdCat.getText());
             int maxStock = Integer.parseInt(this.testocma.getText());
             double precio = Double.parseDouble(this.jPrecio.getText());
@@ -329,12 +328,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
              controller.AnadirProducto(p);
              //RefreshTabla();
            // }
-=======
-            int maxStock = Integer.parseInt(this.testocma.getText());
-            double precio = Double.parseDouble(this.jPrecio.getText());
-            Producte p = new Producte(nombre,precio,stock,minStock,maxStock);
-            controller.AnadirProducto(p);
->>>>>>> origin/master
         }
         else if (this.jbGuardar.getText()=="Modificar"){
              //int resp = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea modificar el registro?");
