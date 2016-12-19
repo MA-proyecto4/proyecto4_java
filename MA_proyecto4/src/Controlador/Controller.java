@@ -68,16 +68,17 @@ public class Controller {
           //Consulta que engloba la tabla producto,categoria y estoc para mostrar los datos
           String sql = "SELECT * FROM `tbl_producte` LEFT JOIN `tbl_categoria` ON `tbl_producte`.`categoria_id`=`tbl_categoria`.`categoria_id`;";
           Statement st = null;
-          String vectorProducto[] = new String[6];
-          String vectorProducto1[] = new String[6];
-          //vectorProducto1[0] = "prod_id";
-          vectorProducto1[0] = "prod_nom";
-          vectorProducto1[1] = "prod_precio";
+          String vectorProducto[] = new String[7];
+          String vectorProducto1[] = new String[7];
+          vectorProducto1[0] = "prod_id";
+          vectorProducto1[1] = "prod_nom";
+          vectorProducto1[2] = "prod_precio";
          // vectorProducto1[3] = "categoria_id";
-          vectorProducto1[2] = "prod_estoc_minim";
-           vectorProducto1[3] = "prod_estoc_max";
-          vectorProducto1[4] = "prod_estoc_actual";
-          vectorProducto1[5] = "categoria_nom";
+          vectorProducto1[3] = "prod_estoc_minim";
+          vectorProducto1[4] = "prod_estoc_max";
+          vectorProducto1[5] = "prod_estoc_actual";
+          vectorProducto1[6] = "categoria_nom";
+          
            muestra=new DefaultTableModel(null, vectorProducto1);
 //String[] vectorProducto; De otra manera definir el vector
 
@@ -89,14 +90,14 @@ public class Controller {
 
             while (rs.next()) {
 
-               // vectorProducto[0] = String.valueOf(rs.getInt("prod_id"));
-                vectorProducto[0] = rs.getString("prod_nom");
-                vectorProducto[1] = String.valueOf(rs.getInt("prod_precio"));
+                vectorProducto[0] = String.valueOf(rs.getInt("prod_id"));
+                vectorProducto[1] = rs.getString("prod_nom");
+                vectorProducto[2] = String.valueOf(rs.getInt("prod_precio"));
                 //vectorProducto[3] = String.valueOf(rs.getInt("categoria_id"));
-                vectorProducto[2] = String.valueOf(rs.getInt("prod_estoc_minim"));
-                vectorProducto[3] = String.valueOf(rs.getInt("prod_estoc_max"));
-                vectorProducto[4] = String.valueOf(rs.getInt("prod_estoc_actual"));
-                vectorProducto[5] = rs.getString("categoria_nom");
+                vectorProducto[3] = String.valueOf(rs.getInt("prod_estoc_minim"));
+                vectorProducto[4] = String.valueOf(rs.getInt("prod_estoc_max"));
+                vectorProducto[5] = String.valueOf(rs.getInt("prod_estoc_actual"));
+                vectorProducto[6] = rs.getString("categoria_nom");
                 muestra.addRow(vectorProducto);
             }
         } catch (Exception e) {
@@ -111,7 +112,7 @@ public class Controller {
              //1. conectarme
                // Conexion conectar = new Conexion();
                 Connection cn = conectar.conec();
-                 String sql = "INSERT INTO `tbl_producte` (`prod_nom`,  `prod_precio`, `categoria_id`, `prod_estoc_actual`, `prod_estoc_minim`, `prod_estoc_max`) VALUES (?, ?, '1', ?, ?, ?);;";
+                 String sql = "INSERT INTO `tbl_producte` (`prod_nom`,  `prod_precio`, `categoria_id`, `prod_estoc_actual`, `prod_estoc_minim`, `prod_estoc_max`) VALUES (?, ?, '1', ?, ?, ?);";
                 PreparedStatement pst = null;
                 try {
                     
@@ -120,8 +121,11 @@ public class Controller {
                     //montar tabla para insertar en la bd
                     System.out.println("He llegado aqui");
                      pst.setString(1, p.getProd_nom());
-                    
                      pst.setDouble(2, p.getProd_precio());
+                     //pst.setInt(3,1);
+                     pst.setInt(3, p.getProd_estoc_actual());
+                     pst.setInt(4, p.getProd_estoc_minim());
+                     pst.setInt(5, p.getProd_estoc_max());
                       System.out.println("Y ahora Aquí 2");
                                     
                     pst.executeUpdate();
@@ -162,7 +166,21 @@ public class Controller {
 
                 }
         }
-      
+      //Funcion para eliminar un producto
+            public void delProd(String id_prod){
+                String sql ="DELETE FROM `tbl_producte` WHERE `tbl_producte`.`prod_id` ='"+id_prod+"'";
+                 Statement st = null;
+                 System.out.println(sql);
+                 ResultSet rs=null;
+                try {
+                    st=cn.createStatement();
+                    rs = st.executeQuery(sql);
+                    
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "No se ha podido eliminar el producto");
+                }
+                 
+            }
 
         
 }
