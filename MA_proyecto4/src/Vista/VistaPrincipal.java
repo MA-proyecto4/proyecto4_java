@@ -7,6 +7,7 @@ package Vista;
 import Modelo.Producte;
 import Controlador.Controller;
 import Modelo.Categoria;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,6 +23,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         initComponents();
         this.tmostrar.setModel(controller.mostrarTabla());
         controller.llenarCombo(jComboBox);
+        this.tProdId.setVisible(false);
     }
     //Funcion que vacia todas las cajas de Texto
    private void Limpiar(){
@@ -31,6 +33,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         this.testocma.setText("");
         this.jPrecio.setText("");
    }
+
    
     /**
      * This method is called from within the constructor to initialize the form.
@@ -130,6 +133,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         lmin_estoc1.setText("Estoc_q_max");
 
         jComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxItemStateChanged(evt);
+            }
+        });
         jComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxActionPerformed(evt);
@@ -306,17 +314,29 @@ public class VistaPrincipal extends javax.swing.JFrame {
     
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         // TODO add your handling code here:
-        if(this.jbGuardar.getText()=="Guardar"){
-            String nombre = this.jNombre.getText();
+         String nombre = this.jNombre.getText();
             int stock = Integer.parseInt(this.tStock.getText());
             int minStock = Integer.parseInt(this.testocm.getText());
+            int categoria = Integer.parseInt(this.lIdCat.getText());
             int maxStock = Integer.parseInt(this.testocma.getText());
             double precio = Double.parseDouble(this.jPrecio.getText());
-            Producte p = new Producte(nombre,precio,stock,minStock,maxStock);
-            controller.AnadirProducto(p);
+           // Producte p = new Producte(nombre,precio,stock,minStock,maxStock);
+        if(this.jbGuardar.getText()=="Guardar"){
+            //int resp = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea guardar el registro?");
+            //if (resp==1){
+            Producte p = new Producte(nombre,precio,categoria,stock,minStock,maxStock);
+             controller.AnadirProducto(p);
+             //RefreshTabla();
+           // }
         }
-        else{
-            System.out.println("Es modificar");
+        else if (this.jbGuardar.getText()=="Modificar"){
+             //int resp = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea modificar el registro?");
+            //if (resp==1)
+            //{
+                int prod_id = Integer.parseInt(this.tProdId.getText());
+                Producte p = new Producte(prod_id,nombre,precio,categoria,stock,minStock,maxStock);
+                controller.UpdateProducto(p);
+            //}
         }
          this.jbEliminar.setEnabled(true);
          this.jbAdd.setEnabled(true);
@@ -339,7 +359,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         tStock.setText(String.valueOf(tmostrar.getValueAt(fila, 5)));
         testocm.setText(String.valueOf(tmostrar.getValueAt(fila, 3)));
         testocma.setText(String.valueOf(tmostrar.getValueAt(fila, 4)));
-        jPrecio.setText(String.valueOf(tmostrar.getValueAt(fila, 1)));
+        jPrecio.setText(String.valueOf(tmostrar.getValueAt(fila, 2)));
         //Desahibilitar los botones de añadir y eliminar
     }//GEN-LAST:event_tmostrarMouseClicked
 
@@ -383,8 +403,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
         // TODO add your handling code here:
-          this.jbEliminar.setEnabled(true);
-         this.jbAdd.setEnabled(true);
+          /*this.jbEliminar.setEnabled(true);
+         this.jbAdd.setEnabled(true);*/
+          
     }//GEN-LAST:event_jbCancelarActionPerformed
 
     private void lIdCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lIdCatActionPerformed
@@ -393,14 +414,24 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
         // TODO add your handling code here:
-        String idProduct = this.tProdId.getText();
-        controller.delProd(idProduct);
+        //Preguntamos si esta Seguro de eliminar el registro
+        int resp = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar el registro?");
+        if (resp==1)
+        {
+         String idProduct = this.tProdId.getText();
+          controller.delProd(idProduct);
+        }
     }//GEN-LAST:event_jbEliminarActionPerformed
-        private void jComboBoxItemStateChanged(java.awt.event.ItemEvent evt){
+
+    private void jComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxItemStateChanged
+        // TODO add your handling code here:
+         //private void jComboBoxItemStateChanged(java.awt.event.ItemEvent evt){
             Categoria ca=(Categoria)this.jComboBox.getSelectedItem();
             this.lIdCat.setText(String.valueOf(ca.getIdcategoria()));
            // System.out.println(ca.getIdcategoria());
-        }
+        //}
+    }//GEN-LAST:event_jComboBoxItemStateChanged
+       
     /**
      * @param args the command line arguments
      */

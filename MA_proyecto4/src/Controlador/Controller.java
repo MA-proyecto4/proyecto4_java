@@ -8,7 +8,7 @@ package Controlador;
 import Modelo.Categoria;
 import Modelo.Conexion;
 import Modelo.Producte;
-import java.sql.CallableStatement;
+//import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -112,7 +112,7 @@ public class Controller {
              //1. conectarme
                // Conexion conectar = new Conexion();
                 Connection cn = conectar.conec();
-                 String sql = "INSERT INTO `tbl_producte` (`prod_nom`,  `prod_precio`, `categoria_id`, `prod_estoc_actual`, `prod_estoc_minim`, `prod_estoc_max`) VALUES (?, ?, '1', ?, ?, ?);";
+                 String sql = "INSERT INTO `tbl_producte` (`prod_nom`,  `prod_precio`, `categoria_id`, `prod_estoc_actual`, `prod_estoc_minim`, `prod_estoc_max`) VALUES (?, ?, ?, ?, ?, ?);";
                 PreparedStatement pst = null;
                 try {
                     
@@ -122,10 +122,10 @@ public class Controller {
                     System.out.println("He llegado aqui");
                      pst.setString(1, p.getProd_nom());
                      pst.setDouble(2, p.getProd_precio());
-                     //pst.setInt(3,1);
-                     pst.setInt(3, p.getProd_estoc_actual());
-                     pst.setInt(4, p.getProd_estoc_minim());
-                     pst.setInt(5, p.getProd_estoc_max());
+                     pst.setInt(3, p.getCategoria());
+                     pst.setInt(4, p.getProd_estoc_actual());
+                     pst.setInt(5, p.getProd_estoc_minim());
+                     pst.setInt(6, p.getProd_estoc_max());
                       System.out.println("Y ahora Aquí 2");
                                     
                     pst.executeUpdate();
@@ -144,7 +144,7 @@ public class Controller {
         //Selecciona los datos de categoria y rellena el combo box
             public void llenarCombo(JComboBox box){
              DefaultComboBoxModel value;
-                String sql = "Select * From tbl_categoria";
+              String sql = "Select * From tbl_categoria";
               Statement st = null;
              ResultSet rs=null;
 
@@ -168,19 +168,58 @@ public class Controller {
         }
       //Funcion para eliminar un producto
             public void delProd(String id_prod){
-                String sql ="DELETE FROM `tbl_producte` WHERE `tbl_producte`.`prod_id` ='"+id_prod+"'";
+                Conexion conectar = new Conexion();
+                Connection cn = conectar.conec();
+                int id_prod2 = Integer.parseInt(id_prod);
+                String sql ="DELETE FROM `tbl_producte` WHERE `prod_id` ="+id_prod2+"";
+                 System.out.println("He llegado aqui");
                  Statement st = null;
-                 System.out.println(sql);
-                 ResultSet rs=null;
+                 
                 try {
-                    st=cn.createStatement();
-                    rs = st.executeQuery(sql);
+                    st = cn.createStatement();
+                    System.out.println("Y ahora aquí2");
+                    st.execute(sql);
                     
-                } catch (SQLException e) {
+                } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "No se ha podido eliminar el producto");
                 }
                  
             }
+       //Funcion para modificar un producto
+              public void UpdateProducto (Producte p){
+             //1. conectarme
+               // Conexion conectar = new Conexion();
+                Connection cn = conectar.conec();
+                 String sql = "UPDATE `tbl_producte` SET `prod_nom` = ?, `prod_precio` = ?,`categoria_id` = ?, `prod_estoc_actual` = ?, `prod_estoc_minim` = ?, `prod_estoc_max` = ? WHERE `tbl_producte`.`prod_id` = ?";
+                PreparedStatement pst = null;
+                try {
+                    
+                    // Creamos el pst, para pasar los parametros a la consulta
+                    pst = cn.prepareStatement(sql);
+                    //montar tabla para insertar en la bd
+                    System.out.println("He llegado aqui");
+                     pst.setString(1, p.getProd_nom());
+                     pst.setDouble(2, p.getProd_precio());
+                     pst.setInt(3, p.getCategoria());
+                     pst.setInt(4, p.getProd_estoc_actual());
+                     pst.setInt(5, p.getProd_estoc_minim());
+                     pst.setInt(6, p.getProd_estoc_max());
+                     pst.setInt(7, p.getProd_id());
+                      System.out.println("Y ahora Aquí 2");
+                                    
+                    pst.executeUpdate();
 
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "Conexion erronea");
+                } finally {
+                    try {
+                        cn.close();
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(null, "Conexion no cerrada");
+                    }
+
+                }
+        }
+            
         
 }

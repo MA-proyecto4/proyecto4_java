@@ -26,16 +26,28 @@ public class Producte {
     public Producte() {
     }
     //COnstructor con todo, menos con categoria
-    public Producte(String prod_nom,  double prod_precio,  int prod_estoc_actual, int prod_estoc_minim, int prod_estoc_max) {
+    public Producte(String prod_nom,  double prod_precio, int categoria, int prod_estoc_actual, int prod_estoc_minim, int prod_estoc_max) {
         this.prod_nom = prod_nom;
         //this.prod_foto = prod_foto;
         this.prod_precio = prod_precio;
-        //this.categoria = categoria;
+        this.categoria = categoria;
         this.prod_estoc_actual = prod_estoc_actual;
         this.prod_estoc_minim = prod_estoc_minim;
         this.prod_estoc_max = prod_estoc_max;
     }
-        
+    //Constructor  para modificar
+    public Producte(int prod_id, String prod_nom, double prod_precio, int categoria, int prod_estoc_actual, int prod_estoc_minim, int prod_estoc_max) {
+        this.prod_id = prod_id;
+        this.prod_nom = prod_nom;
+        this.prod_precio = prod_precio;
+        this.categoria = categoria;
+        this.prod_estoc_actual = prod_estoc_actual;
+        this.prod_estoc_minim = prod_estoc_minim;
+        this.prod_estoc_max = prod_estoc_max;
+    }
+
+   
+    
     
     //Metodos accesorios
     //Getters
@@ -71,6 +83,7 @@ public class Producte {
             public int getProd_estoc_max() {
                 return prod_estoc_max;
             }
+            
 
        
     //Setters
