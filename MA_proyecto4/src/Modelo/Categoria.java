@@ -40,8 +40,11 @@ public class Categoria {
 
     @Override
     public String toString() {
+        
         return nombre ;
     }
-    
+   /* public int toInt(){
+        return idcategoria;
+    }*/
     
 }

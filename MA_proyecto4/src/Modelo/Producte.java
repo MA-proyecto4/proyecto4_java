@@ -22,19 +22,115 @@ public class Producte {
     private int prod_estoc_max;
     
     //Constructores
+
     public Producte() {
     }
+<<<<<<< HEAD
+    //COnstructor con todo, menos con categoria
+    public Producte(String prod_nom,  double prod_precio, int categoria, int prod_estoc_actual, int prod_estoc_minim, int prod_estoc_max) {
+        this.prod_nom = prod_nom;
+        //this.prod_foto = prod_foto;
+=======
 
     public Producte(int prod_id, String prod_nom, String prod_foto, double prod_precio, int categoria, int prod_estoc_actual, int prod_estoc_minim, int prod_estoc_max) {
         this.prod_id = prod_id;
         this.prod_nom = prod_nom;
         this.prod_foto = prod_foto;
+>>>>>>> origin/master
         this.prod_precio = prod_precio;
         this.categoria = categoria;
         this.prod_estoc_actual = prod_estoc_actual;
         this.prod_estoc_minim = prod_estoc_minim;
         this.prod_estoc_max = prod_estoc_max;
     }
+<<<<<<< HEAD
+    //Constructor  para modificar
+    public Producte(int prod_id, String prod_nom, double prod_precio, int categoria, int prod_estoc_actual, int prod_estoc_minim, int prod_estoc_max) {
+        this.prod_id = prod_id;
+        this.prod_nom = prod_nom;
+        this.prod_precio = prod_precio;
+        this.categoria = categoria;
+        this.prod_estoc_actual = prod_estoc_actual;
+        this.prod_estoc_minim = prod_estoc_minim;
+        this.prod_estoc_max = prod_estoc_max;
+    }
+
+   
+    
+    
+    //Metodos accesorios
+    //Getters
+
+            public int getProd_id() {
+                return prod_id;
+            }
+
+            public String getProd_nom() {
+                return prod_nom;
+            }
+
+            public String getProd_foto() {
+                return prod_foto;
+            }
+
+            public double getProd_precio() {
+                return prod_precio;
+            }
+
+            public int getCategoria() {
+                return categoria;
+            }
+
+            public int getProd_estoc_actual() {
+                return prod_estoc_actual;
+            }
+
+            public int getProd_estoc_minim() {
+                return prod_estoc_minim;
+            }
+
+            public int getProd_estoc_max() {
+                return prod_estoc_max;
+            }
+            
+
+       
+    //Setters
+
+            public void setProd_id(int prod_id) {
+                this.prod_id = prod_id;
+            }
+
+            public void setProd_nom(String prod_nom) {
+                this.prod_nom = prod_nom;
+            }
+
+            public void setProd_foto(String prod_foto) {
+                this.prod_foto = prod_foto;
+            }
+
+            public void setProd_precio(double prod_precio) {
+                this.prod_precio = prod_precio;
+            }
+
+            public void setCategoria(int categoria) {
+                this.categoria = categoria;
+            }
+
+            public void setProd_estoc_actual(int prod_estoc_actual) {
+                this.prod_estoc_actual = prod_estoc_actual;
+            }
+
+            public void setProd_estoc_minim(int prod_estoc_minim) {
+                this.prod_estoc_minim = prod_estoc_minim;
+            }
+
+            public void setProd_estoc_max(int prod_estoc_max) {
+                this.prod_estoc_max = prod_estoc_max;
+            }
+
+            
+=======
 
     public Producte(String nombre, double precio) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -103,6 +199,7 @@ public class Producte {
     public void setProd_estoc_max(int prod_estoc_max) {
         this.prod_estoc_max = prod_estoc_max;
     }
+>>>>>>> origin/master
 
     
 }
