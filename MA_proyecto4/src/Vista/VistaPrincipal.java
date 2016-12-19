@@ -25,6 +25,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
         this.tmostrar.setModel(controller.mostrarTabla());
         controller.llenarCombo(jComboBox);
         this.tProdId.setVisible(false);
+        this.lIdCat.setVisible(false);
+        
     }
     //Funcion que vacia todas las cajas de Texto
    private void Limpiar(){
