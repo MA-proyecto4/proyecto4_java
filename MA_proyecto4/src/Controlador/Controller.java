@@ -14,6 +14,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -110,7 +112,7 @@ public class Controller {
         public void AnadirProducto (Producte p){
              //1. conectarme
                // Conexion conectar = new Conexion();
-                Connection cn = conectar.conec();
+                //Connection cn = conectar.conec();
                  String sql = "INSERT INTO `tbl_producte` (`prod_nom`,  `prod_precio`, `categoria_id`, `prod_estoc_actual`, `prod_estoc_minim`, `prod_estoc_max`) VALUES (?, ?, '1', ?, ?, ?);;";
                 PreparedStatement pst = null;
                 try {
@@ -119,12 +121,17 @@ public class Controller {
                     pst = cn.prepareStatement(sql);
                     //montar tabla para insertar en la bd
                     System.out.println("He llegado aqui");
-                     pst.setString(1, p.getProd_nom());
+                        pst.setString(1, p.getProd_nom());
+                        pst.setDouble(2, p.getProd_precio());
+                        pst.setInt(3, p.getCategoria());
+                        pst.setInt(4, p.getProd_estoc_actual());
+                        pst.setInt(5, p.getProd_estoc_minim());
+                        pst.setInt(6, p.getProd_estoc_max());
+                        
                     
-                     pst.setDouble(2, p.getProd_precio());
                       System.out.println("Y ahora Aquí 2");
                                     
-                    pst.executeUpdate();
+                        pst.executeUpdate();
 
                 } catch (SQLException e) {
                     JOptionPane.showMessageDialog(null, "Conexion erronea");
