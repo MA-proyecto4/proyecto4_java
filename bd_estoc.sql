@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-12-2016 a las 18:39:25
+-- Tiempo de generación: 20-12-2016 a las 18:11:07
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 7.0.6
 
@@ -127,12 +127,12 @@ INSERT INTO `tbl_lloc` (`lloc_id`, `num_bloc`, `num_passadis`, `num_lleixa`) VAL
 CREATE TABLE `tbl_producte` (
   `prod_id` int(11) NOT NULL,
   `prod_nom` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `prod_foto` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `prod_precio` double(5,2) NOT NULL,
+  `prod_foto` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `prod_precio` double(7,3) NOT NULL,
   `categoria_id` int(11) NOT NULL,
-  `prod_estoc_actual` int(3) NOT NULL,
-  `prod_estoc_minim` int(3) NOT NULL,
-  `prod_estoc_max` int(3) NOT NULL
+  `prod_estoc_actual` int(4) NOT NULL,
+  `prod_estoc_minim` int(4) NOT NULL,
+  `prod_estoc_max` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -140,16 +140,16 @@ CREATE TABLE `tbl_producte` (
 --
 
 INSERT INTO `tbl_producte` (`prod_id`, `prod_nom`, `prod_foto`, `prod_precio`, `categoria_id`, `prod_estoc_actual`, `prod_estoc_minim`, `prod_estoc_max`) VALUES
-(4, 'Silla minimalista de polipiel ', '', 35.00, 5, 56, 10, 90),
-(5, 'Silla salón tapizada', '', 49.00, 5, 21, 5, 40),
-(6, 'Mesa comedor tapa cristal', '', 86.00, 4, 65, 15, 100),
-(7, 'Mesa cristal fija', '', 132.00, 4, 34, 10, 60),
-(8, 'Sofá cama libro', '', 166.00, 8, 28, 20, 120),
-(9, 'Sofá desenfundable 3 plazas', '', 226.00, 8, 45, 30, 150),
-(10, 'Mesa de oficina New Pano', '', 108.00, 9, 5, 29, 30),
-(11, 'LEA Escritorio de madera', '', 249.90, 9, 89, 20, 130),
-(12, 'Lámpara de pie DIVA LED 2', '', 95.00, 6, 7, 5, 15),
-(13, 'Lámpara colgante CARCASS ', '', 60.00, 6, 13, 10, 30);
+(4, 'Silla minimalista de polipiel ', '', 35.000, 5, 56, 10, 90),
+(5, 'Silla salón tapizada', '', 49.000, 5, 21, 5, 40),
+(6, 'Mesa comedor tapa cristal', '', 86.000, 4, 65, 15, 100),
+(7, 'Mesa cristal fija', '', 132.000, 4, 34, 10, 60),
+(8, 'Sofá cama libro', '', 166.000, 8, 28, 20, 120),
+(9, 'Sofá desenfundable 3 plazas', '', 226.000, 8, 45, 30, 150),
+(10, 'Mesa de oficina New Pano', '', 108.000, 9, 5, 29, 30),
+(11, 'LEA Escritorio de madera', '', 249.900, 9, 89, 20, 130),
+(12, 'Lámpara de pie DIVA LED 2', '', 95.000, 6, 7, 5, 15),
+(13, 'Lámpara colgante CARCASS ', '', 60.000, 6, 13, 10, 30);
 
 -- --------------------------------------------------------
 
@@ -275,7 +275,7 @@ ALTER TABLE `tbl_lloc`
 -- AUTO_INCREMENT de la tabla `tbl_producte`
 --
 ALTER TABLE `tbl_producte`
-  MODIFY `prod_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `prod_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT de la tabla `tbl_proveidor`
 --
