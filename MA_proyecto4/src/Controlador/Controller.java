@@ -15,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -130,6 +131,7 @@ public class Controller {
                       System.out.println("Y ahora Aquí 2");
                                     
                     pst.executeUpdate();
+                   
 
                 } catch (SQLException e) {
                     JOptionPane.showMessageDialog(null, "Conexion erronea");
@@ -221,7 +223,33 @@ public class Controller {
 
                 }
         }
-            
+    
+     //Funcion que alerta de los productos cuyo stock por debajo del stock minimo
+     public void DangerEstoc(){
+         //Sentencia SQL que selecciona todos los estocks inferiores al stock minimo
+         String sql = "SELECT * FROM `tbl_producte` WHERE `prod_estoc_actual` <`prod_estoc_minim`";
+         Statement st = null;
+             ResultSet rs=null;
+                
+                try {
+                    st = cn.createStatement();
+                     //JOptionPane.showMessageDialog(null, "Conexion viento en popa2");
+                    rs = st.executeQuery(sql);
+                     // JOptionPane.showMessageDialog(null, "Conexion viento en popa2");
+                     
+                     while (rs.next()) {
+                       
+                         String name = rs.getString("prod_nom");
+                         
+                         //producteDanger.add(1, rs.getString("prod_nom"));
+                         JOptionPane.showMessageDialog(null, "El estoc de "+ name + " esta por debajo del nombre");
+                     }
+                }
+                catch(SQLException ex){
+                    JOptionPane.showMessageDialog(null, "COnexión incorrecta");
+                }
+                
+     }
         
 }
 
