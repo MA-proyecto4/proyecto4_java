@@ -397,12 +397,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
             return;
         }
         
-        if (!Controller.isNumeric(this.jPrecio.getText())) {
-              
-            JOptionPane.showMessageDialog(rootPane, "El precio debe ser un numero ");
-            jPrecio.requestFocus();
-            return;
-        }
         
         
         
@@ -506,7 +500,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
           controller.delProd(idProduct);
           Limpiar();
           
-          this.tmostrar.setModel(controller.mostrarTabla());
+          //this.tmostrar.setModel(controller.mostrarTabla());
         }
     }//GEN-LAST:event_jbEliminarActionPerformed
 
