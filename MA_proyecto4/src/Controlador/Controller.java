@@ -31,7 +31,16 @@ public class Controller {
 
     //Controllador
     public Controller() {
+        
     }
+    public static boolean isNumeric(String cadena){
+	try {
+		Integer.parseInt(cadena);
+		return true;
+	} catch (NumberFormatException nfe){
+		return false;
+	}
+}
     
     //Funcion de login, devuelve 1 si el login es TRUE y 0 si es FALSE
     
@@ -121,17 +130,17 @@ public class Controller {
                     // Creamos el pst, para pasar los parametros a la consulta
                     pst = cn.prepareStatement(sql);
                     //montar tabla para insertar en la bd
-                    System.out.println("He llegado aqui");
+                    //System.out.println("He llegado aqui");
                      pst.setString(1, p.getProd_nom());
                      pst.setDouble(2, p.getProd_precio());
                      pst.setInt(3, p.getCategoria());
                      pst.setInt(4, p.getProd_estoc_actual());
                      pst.setInt(5, p.getProd_estoc_minim());
                      pst.setInt(6, p.getProd_estoc_max());
-                      System.out.println("Y ahora Aquí 2");
+                      //System.out.println("Y ahora Aquí 2");
                                     
                     pst.executeUpdate();
-                   
+                    mostrarTabla();
 
                 } catch (SQLException e) {
                     JOptionPane.showMessageDialog(null, "Conexion erronea");
@@ -167,6 +176,13 @@ public class Controller {
                 } catch (SQLException ex) {
                      JOptionPane.showMessageDialog(null, "Conexion erronea");
 
+                } finally {
+                    try {
+                        cn.close();
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(null, "Conexion no cerrada");
+                    }
+
                 }
         }
       //Funcion para eliminar un producto
@@ -175,19 +191,27 @@ public class Controller {
                 Connection cn = conectar.conec();
                 int id_prod2 = Integer.parseInt(id_prod);
                 String sql ="DELETE FROM `tbl_producte` WHERE `prod_id` ="+id_prod2+"";
-                 System.out.println("He llegado aqui");
+                 //System.out.println("He llegado aqui");
                  Statement st = null;
                  
                 try {
                     st = cn.createStatement();
-                    System.out.println("Y ahora aquí2");
+                    //System.out.println("Y ahora aquí2");
                     st.execute(sql);
                     
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "No se ha podido eliminar el producto");
+                } finally {
+                    try {
+                        cn.close();
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(null, "Conexion no cerrada");
+                    }
+
                 }
+        }
                  
-            }
+            
        //Funcion para modificar un producto
               public void UpdateProducto (Producte p){
              //1. conectarme
@@ -200,7 +224,7 @@ public class Controller {
                     // Creamos el pst, para pasar los parametros a la consulta
                     pst = cn.prepareStatement(sql);
                     //montar tabla para insertar en la bd
-                    System.out.println("He llegado aqui");
+                    //System.out.println("He llegado aqui");
                      pst.setString(1, p.getProd_nom());
                      pst.setDouble(2, p.getProd_precio());
                      pst.setInt(3, p.getCategoria());
@@ -208,7 +232,7 @@ public class Controller {
                      pst.setInt(5, p.getProd_estoc_minim());
                      pst.setInt(6, p.getProd_estoc_max());
                      pst.setInt(7, p.getProd_id());
-                      System.out.println("Y ahora Aquí 2");
+                      //System.out.println("Y ahora Aquí 2");
                                     
                     pst.executeUpdate();
 
